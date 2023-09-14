@@ -50,7 +50,7 @@ const searchResultText=document.querySelector(".searchResultText")
 //找不到網頁卡片區
 const cantFindArea=document.querySelector(".cantFind-area")
 
-//SweetAlert2
+//SweetAlert22
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
