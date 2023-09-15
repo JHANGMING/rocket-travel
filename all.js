@@ -1,3 +1,4 @@
+//原始資料
 let data = [
     {
       "id": 0,
@@ -50,7 +51,7 @@ const searchResultText=document.querySelector(".searchResultText")
 //找不到網頁卡片區
 const cantFindArea=document.querySelector(".cantFind-area")
 
-//SweetAlert2
+//SweetAlert22
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -174,11 +175,12 @@ function renderData(newData=data){
     cantFindArea.classList.add("hidden")
   }
   const html=newData.map((item)=>
-  `<li class="col-span-12 sm:col-span-6 md:col-span-4 shadowCard">
+  `<li class="col-span-12 sm:col-span-6 md:col-span-4 shadowCard" >
     <div class="relative">
       <a href="#" class="overflow-hidden"><img src="${item.imgUrl}" alt="" class="h-[180px] object-cover w-full"></a>
       <p class="borderCardTag ticketCardRegion">${item.area}</p>
       <p class="borderCardTag ticketCardRank">${item.rate}</p>
+      <i class="fa-regular fa-circle-xmark delete delete-btn" data-id=${item.id}></i>
     </div>
     <div class="flex flex-col justify-between h-[296px] px-4 pt-4 pb-3">
       <div class="">
@@ -195,7 +197,8 @@ function renderData(newData=data){
     </div>
   </li>
   `).join("")
-  card.innerHTML=html
+  card.innerHTML=html;
+  deleteCard()
 }
 
 //地區塞選
@@ -221,3 +224,36 @@ function inputHandler(){
   }
 }
 
+//刪除卡片
+function deleteCard(){
+  //deleteBtn監聽
+  const deleteBtn=document.querySelectorAll(".delete")
+  deleteBtn.forEach((item)=>{
+  item.addEventListener("click",deleteBtnHandler)
+  })
+
+  function deleteBtnHandler(e){
+    Swal.fire({
+    title: '你確定要刪除嗎?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Deleted!',
+        '刪除成功',
+        'success'
+      )
+      let deleteId=Number(e.target.dataset.id);
+      const findIDindex=data.findIndex((item)=>item.id===deleteId)
+      const newData=data.filter((item)=>item.id!==deleteId)
+      data.splice(findIDindex,1)
+      renderData(newData)
+    }
+  })
+  }
+}
