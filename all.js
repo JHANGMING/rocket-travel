@@ -177,7 +177,7 @@ function renderData(newData=data){
   const html=newData.map((item)=>
   `<li class="col-span-12 sm:col-span-6 md:col-span-4 shadowCard" >
     <div class="relative">
-      <a href="#" class="overflow-hidden"><img src="${item.imgUrl}" alt="" class="h-[180px] object-cover w-full"></a>
+      <a href="#1" class="overflow-hidden"><img src="${item.imgUrl}" alt="" class="h-[180px] object-cover w-full"></a>
       <p class="borderCardTag ticketCardRegion">${item.area}</p>
       <p class="borderCardTag ticketCardRank">${item.rate}</p>
       <i class="fa-regular fa-circle-xmark delete delete-btn" data-id=${item.id}></i>
